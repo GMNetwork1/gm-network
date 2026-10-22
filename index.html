@@ -1,46 +1,678 @@
+
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#123c32"><title>GM Network</title><link rel="manifest" href="manifest.json">
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#123c32">
+<title>GM Network</title>
+<link rel="manifest" href="manifest.json">
+
 <style>
-:root{--g:#123c32;--g2:#1e6652;--gold:#f0bd55;--bg:#f3f7f4;--ink:#17231f;--muted:#65746d;--line:#dfe8e2}*{box-sizing:border-box}body{margin:0;font:15px system-ui,Arial;background:var(--bg);color:var(--ink)}header{background:linear-gradient(130deg,var(--g),var(--g2));color:white;padding:20px 16px 28px;border-radius:0 0 24px 24px}.brand{display:flex;gap:12px;align-items:center}.logo{width:48px;height:48px;border-radius:14px;background:var(--gold);color:var(--g);display:grid;place-items:center;font-weight:900;font-size:20px}h1{margin:0;font-size:24px}header p{margin:4px 0;color:#d9e9e1}main{max-width:760px;margin:-12px auto 30px;padding:0 13px}.notice,.panel,.stat,.tabs{border:1px solid var(--line);border-radius:15px;padding:14px;background:white;margin-bottom:12px}.notice{background:#fff7df;border-color:#eed89a;color:#664e18;font-size:12px;line-height:1.6}.tabs{display:flex;gap:5px;overflow:auto;padding:6px}.tabs button{border:0;border-radius:9px;padding:10px;background:transparent;color:var(--muted);white-space:nowrap;font:inherit}.tabs button.active{background:var(--g);color:white}.stats{display:grid;grid-template-columns:1fr 1fr;gap:9px}.stat{margin:0}.stat small,.muted{color:var(--muted);font-size:13px}.stat strong{display:block;font-size:23px;color:var(--g)}h2{font-size:18px;margin:0 0 12px}label{display:block;font-size:13px;font-weight:650;margin:10px 0 5px}input,select{width:100%;padding:12px;border:1px solid #cbd9cf;border-radius:10px;font:inherit;background:white;color:var(--ink)}button.primary{background:var(--g);color:white;border:0;border-radius:10px;padding:12px;font:inherit;width:100%;margin-top:12px;font-weight:650}button.secondary{background:#eaf3ed;border:1px solid #cbded1;border-radius:9px;padding:10px;color:var(--g);font:inherit}.item{display:flex;justify-content:space-between;gap:10px;padding:11px 0;border-top:1px solid var(--line);overflow-wrap:anywhere}.hidden{display:none!important}.pill{display:inline-block;background:#e9f4ed;color:#1b6548;border-radius:20px;padding:3px 8px;font-size:11px}footer{text-align:center;color:var(--muted);font-size:11px;padding:20px}.status{padding:10px;border-radius:10px;background:#eef5ef;margin-top:10px;font-size:13px;overflow-wrap:anywhere}
-</style></head><body>
-<header><div class="brand"><div class="logo">GM</div><div><h1>GM Network</h1><p>Referral & Product Sales</p></div></div></header>
+:root {
+  --g:#123c32;
+  --g2:#1e6652;
+  --gold:#f0bd55;
+  --bg:#f3f7f4;
+  --ink:#17231f;
+  --muted:#65746d;
+  --line:#dfe8e2;
+}
+* { box-sizing:border-box; }
+body {
+  margin:0;
+  font:15px system-ui,Arial,sans-serif;
+  background:var(--bg);
+  color:var(--ink);
+}
+header {
+  background:linear-gradient(130deg,var(--g),var(--g2));
+  color:white;
+  padding:20px 16px 28px;
+  border-radius:0 0 24px 24px;
+}
+.brand { display:flex; gap:12px; align-items:center; }
+.logo {
+  width:48px;height:48px;border-radius:14px;
+  background:var(--gold);color:var(--g);
+  display:grid;place-items:center;
+  font-weight:900;font-size:20px;
+}
+h1 { margin:0;font-size:24px; }
+header p { margin:4px 0;color:#d9e9e1; }
+main { max-width:760px;margin:-12px auto 30px;padding:0 13px; }
+.notice,.panel,.stat,.tabs {
+  border:1px solid var(--line);
+  border-radius:15px;
+  padding:14px;
+  background:white;
+  margin-bottom:12px;
+}
+.notice {
+  background:#fff7df;border-color:#eed89a;
+  color:#664e18;font-size:12px;line-height:1.6;
+}
+.tabs { display:flex;gap:5px;overflow-x:auto;padding:6px; }
+.tabs button {
+  border:0;border-radius:9px;padding:10px;
+  background:transparent;color:var(--muted);
+  white-space:nowrap;font:inherit;flex-shrink:0;
+}
+.tabs button.active { background:var(--g);color:white; }
+.stats { display:grid;grid-template-columns:1fr 1fr;gap:9px; }
+.stat { margin:0;min-width:0; }
+.stat small,.muted { color:var(--muted);font-size:13px; }
+.stat strong {
+  display:block;font-size:23px;color:var(--g);
+  overflow-wrap:anywhere;
+}
+h2 { font-size:18px;margin:0 0 12px; }
+label { display:block;font-size:13px;font-weight:650;margin:10px 0 5px; }
+input,select {
+  width:100%;padding:12px;border:1px solid #cbd9cf;
+  border-radius:10px;font:inherit;background:white;color:var(--ink);
+}
+button.primary {
+  background:var(--g);color:white;border:0;
+  border-radius:10px;padding:12px;font:inherit;
+  width:100%;margin-top:12px;font-weight:650;
+}
+button.secondary {
+  background:#eaf3ed;border:1px solid #cbded1;
+  border-radius:9px;padding:10px;color:var(--g);font:inherit;
+}
+.row { display:flex;gap:8px; }
+.row button { flex:1;min-width:0; }
+.item {
+  display:flex;justify-content:space-between;gap:10px;
+  padding:11px 0;border-top:1px solid var(--line);
+  overflow-wrap:anywhere;
+}
+.hidden { display:none!important; }
+.pill {
+  display:inline-block;background:#e9f4ed;color:#1b6548;
+  border-radius:20px;padding:3px 8px;font-size:11px;
+}
+footer { text-align:center;color:var(--muted);font-size:11px;padding:20px; }
+.status {
+  padding:10px;border-radius:10px;background:#eef5ef;
+  margin-top:10px;font-size:13px;overflow-wrap:anywhere;
+}
+.status.error { background:#fff0ee;color:#982f24; }
+.status.success { background:#e6f5e9;color:#1b6548; }
+button:disabled { opacity:.55;cursor:not-allowed; }
+</style>
+</head>
+
+<body>
+<header>
+  <div class="brand">
+    <div class="logo">GM</div>
+    <div>
+      <h1>GM Network</h1>
+      <p>Referral &amp; Product Sales</p>
+    </div>
+  </div>
+</header>
+
 <main>
-<div class="notice"><b>Setup required:</b> This version has a Supabase connection slot and admin-only menu logic. It will not become a live multi-user app until you configure your Supabase project, publish this site on HTTPS, and assign the owner account as admin. Do not use for real payments until security testing is complete.</div>
-<nav class="tabs" id="tabs"><button class="active" data-tab="home">Dashboard</button><button data-tab="account">Account</button><button data-tab="products">Products</button><button data-tab="team">My Team</button><button data-tab="admin" id="adminTab" class="hidden">Admin</button></nav>
-<section id="home" class="view"><div class="stats"><div class="stat"><small>Team members</small><strong id="nm">—</strong></div><div class="stat"><small>Products</small><strong id="np">—</strong></div><div class="stat"><small>Sales</small><strong id="ns">—</strong></div><div class="stat"><small>Est. commission</small><strong id="nc">—</strong></div></div><div class="panel" style="margin-top:12px"><h2>Welcome</h2><p class="muted">Admin tools are hidden unless the signed-in account has an admin record in the database. Names are not used as unique member identifiers.</p><div id="connection" class="status">Backend not configured.</div></div></section>
-<section id="account" class="view hidden"><div class="panel"><h2>Sign in / create account</h2><p class="muted">Use a test account first. Passwords are handled by Supabase Auth after configuration; this page does not store them itself.</p><label>Email</label><input id="email" type="email" autocomplete="email" placeholder="you@example.com"><label>Password</label><input id="password" type="password" autocomplete="current-password" placeholder="At least 8 characters"><div class="row"><button class="primary" onclick="signIn()">Sign in</button><button class="primary" onclick="signUp()">Sign up</button></div><button class="secondary" onclick="signOut()" style="margin-top:10px">Sign out</button><div id="authStatus" class="status">Not signed in.</div></div></section>
-<section id="products" class="view hidden"><div class="panel"><h2>Products</h2><p class="muted">When configured, active products load from the shared database.</p><div id="productList">Backend not connected.</div></div></section>
-<section id="team" class="view hidden"><div class="panel"><h2>My Team</h2><p class="muted">The secure referral signup workflow is not yet implemented. Do not manually promise or pay commissions based on this starter.</p><div id="teamList">Online referral linking will be added after signup flow is implemented.</div></div></section>
-<section id="admin" class="view hidden"><div class="panel"><h2>Admin Dashboard</h2><span class="pill">Admin role required</span><p class="muted">Only the signed-in account whose user ID is present in public.admin_users should see this menu. Database Row Level Security must remain enabled.</p><div class="stats"><div class="stat"><small>Members</small><strong id="am">—</strong></div><div class="stat"><small>Products</small><strong id="ap">—</strong></div><div class="stat"><small>Orders</small><strong id="ao">—</strong></div><div class="stat"><small>Commission records</small><strong id="ac">—</strong></div></div></div>
-<div class="panel"><h2>Add product</h2><label>Product name</label><input id="newProduct" placeholder="Product name"><label>Price (PKR)</label><input id="newPrice" type="number" min="1" placeholder="2000"><label>Sales commission (%)</label><input id="newRate" type="number" min="0" max="50" value="5"><button class="primary" onclick="addOnlineProduct()">Save product</button><div id="adminStatus" class="status">Admin action status will appear here.</div></div>
-<div class="panel"><h2>Recent members</h2><div id="adminMembers" class="muted">No data loaded.</div></div></section>
-<footer>GM Network • Admin upgrade starter • v0.3</footer></main>
+<div class="notice">
+  <b>Setup information:</b>
+  Supabase configuration, database tables, Row Level Security (RLS),
+  and admin permissions must be set up correctly. Test the application
+  before using real payments or paying commissions.
+</div>
+
+<nav class="tabs" id="tabs">
+  <button class="active" data-tab="home">Dashboard</button>
+  <button data-tab="account">Account</button>
+  <button data-tab="products">Products</button>
+  <button data-tab="team">My Team</button>
+  <button data-tab="admin" id="adminTab" class="hidden">Admin</button>
+</nav>
+
+<section id="home" class="view">
+  <div class="stats">
+    <div class="stat"><small>Team members</small><strong id="nm">—</strong></div>
+    <div class="stat"><small>Products</small><strong id="np">—</strong></div>
+    <div class="stat"><small>Sales</small><strong id="ns">—</strong></div>
+    <div class="stat"><small>Est. commission</small><strong id="nc">—</strong></div>
+  </div>
+  <div class="panel" style="margin-top:12px">
+    <h2>Welcome to GM Network</h2>
+    <p class="muted">
+      Sign in to your account. The Admin menu appears only when
+      the signed-in user has a valid admin record.
+    </p>
+    <div id="connection" class="status">Connecting to backend…</div>
+  </div>
+</section>
+
+<section id="account" class="view hidden">
+  <div class="panel">
+    <h2>Sign in / Create account</h2>
+    <p class="muted">
+      Use your existing test account to sign in. New accounts may
+      require email confirmation in Supabase.
+    </p>
+    <label for="email">Email</label>
+    <input id="email" type="email" autocomplete="email" placeholder="you@example.com">
+
+    <label for="password">Password</label>
+    <input id="password" type="password" autocomplete="current-password"
+           placeholder="At least 8 characters">
+
+    <div class="row">
+      <button class="primary" id="signInBtn" onclick="signIn()">Sign in</button>
+      <button class="primary" id="signUpBtn" onclick="signUp()">Sign up</button>
+    </div>
+
+    <button class="secondary" onclick="signOut()" style="margin-top:10px">
+      Sign out
+    </button>
+    <div id="authStatus" class="status">Not signed in.</div>
+  </div>
+</section>
+
+<section id="products" class="view hidden">
+  <div class="panel">
+    <h2>Products</h2>
+    <p class="muted">Active products from the database appear here.</p>
+    <div id="productList">Loading products…</div>
+  </div>
+</section>
+
+<section id="team" class="view hidden">
+  <div class="panel">
+    <h2>My Team</h2>
+    <p class="muted">
+      Referral linking and member registration are not fully implemented
+      in this version.
+    </p>
+    <div id="teamList">Referral system setup is pending.</div>
+  </div>
+</section>
+
+<section id="admin" class="view hidden">
+  <div class="panel">
+    <h2>Admin Dashboard</h2>
+    <span class="pill">Admin role required</span>
+    <p class="muted">
+      Admin visibility is checked using the signed-in user's ID
+      in public.admin_users. Database permissions must also protect
+      admin operations.
+    </p>
+    <div class="stats">
+      <div class="stat"><small>Members</small><strong id="am">—</strong></div>
+      <div class="stat"><small>Products</small><strong id="ap">—</strong></div>
+      <div class="stat"><small>Orders</small><strong id="ao">—</strong></div>
+      <div class="stat"><small>Commission records</small><strong id="ac">—</strong></div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>Add product</h2>
+    <label for="newProduct">Product name</label>
+    <input id="newProduct" placeholder="Product name">
+
+    <label for="newPrice">Price (PKR)</label>
+    <input id="newPrice" type="number" min="1" step="0.01" placeholder="2000">
+
+    <label for="newRate">Sales commission (%)</label>
+    <input id="newRate" type="number" min="0" max="50" step="0.1" value="5">
+
+    <button class="primary" id="saveProductBtn" onclick="addOnlineProduct()">
+      Save product
+    </button>
+    <div id="adminStatus" class="status">Ready.</div>
+  </div>
+
+  <div class="panel">
+    <h2>Recent members</h2>
+    <div id="adminMembers" class="muted">No data loaded.</div>
+  </div>
+</section>
+
+<footer>GM Network • Admin upgrade starter • v0.4</footer>
+</main>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="config.js"></script>
+
 <script>
-let sb=null,user=null,isAdmin=false;
-function tab(id){if(id==='admin'&&!isAdmin){alert('Admin access required. Sign in with the owner account assigned in the database.');return}document.querySelectorAll('.view').forEach(v=>v.classList.toggle('hidden',v.id!==id));document.querySelectorAll('[data-tab]').forEach(b=>b.classList.toggle('active',b.dataset.tab===id))}
-document.querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>tab(b.dataset.tab));
-function status(id,msg){document.getElementById(id).textContent=msg}
-function configReady(){return window.GM_SUPABASE_URL&&window.GM_SUPABASE_ANON_KEY&&!window.GM_SUPABASE_URL.includes('YOUR_')&&!window.GM_SUPABASE_ANON_KEY.includes('YOUR_')}
-async function init(){if(!configReady()){status('connection','Backend not configured. Edit config.js using your Supabase Project URL and anon/public key.');return}
- if(!window.supabase){status('connection','Supabase library did not load. Check internet connection.');return}
- sb=window.supabase.createClient(window.GM_SUPABASE_URL,window.GM_SUPABASE_ANON_KEY);
- const {data:{session}}=await sb.auth.getSession();user=session?.user||null;await updateAuth();sb.auth.onAuthStateChange((_e,s)=>{user=s?.user||null;setTimeout(updateAuth,0)});await loadProducts();}
-async function updateAuth(){isAdmin=false;if(!sb){status('authStatus','Backend not configured yet.');return}
- if(!user){document.getElementById('adminTab').classList.add('hidden');status('authStatus','Not signed in.');status('connection','Supabase configured; sign in to continue.');return}
- status('authStatus','Signed in: '+user.email+' • '+user.id);status('connection','Signed in. Checking admin permission…');
- const {data,error}=await sb.from('admin_users').select('user_id').eq('user_id',user.id).maybeSingle();
- isAdmin=!!data&&!error;document.getElementById('adminTab').classList.toggle('hidden',!isAdmin);
- status('connection',isAdmin?'Connected • Admin access confirmed.':'Connected • Member account. Admin menu hidden.');
- if(isAdmin)await loadAdmin();await loadProducts();}
-async function signIn(){if(!sb)return alert('First configure config.js and deploy on HTTPS.');let email=document.getElementById('email').value.trim(),password=document.getElementById('password').value;if(!email||!password)return alert('Enter email and password.');let {error}=await sb.auth.signInWithPassword({email,password});if(error)status('authStatus','Sign-in error: '+error.message)}
-async function signUp(){if(!sb)return alert('First configure config.js and deploy on HTTPS.');let email=document.getElementById('email').value.trim(),password=document.getElementById('password').value;if(!email||password.length<8)return alert('Enter email and password (at least 8 characters).');let {error}=await sb.auth.signUp({email,password});status('authStatus',error?'Sign-up error: '+error.message:'Signup request sent. Check email if confirmation is enabled; profile creation is not yet implemented.')}
-async function signOut(){if(sb)await sb.auth.signOut();user=null;isAdmin=false;document.getElementById('adminTab').classList.add('hidden');tab('home');status('authStatus','Signed out.')}
-async function loadProducts(){if(!sb){document.getElementById('productList').textContent='Backend not configured.';return}let {data,error}=await sb.from('products').select('id,name,price_pkr,commission_percent').eq('active',true).order('created_at',{ascending:false});if(error){document.getElementById('productList').textContent='Could not load products: '+error.message;return}document.getElementById('productList').innerHTML=data.map(p=>`<div class="item"><span>${esc(p.name)} <small class="muted">(${p.commission_percent}%)</small></span><b>Rs ${Number(p.price_pkr).toLocaleString()}</b></div>`).join('')||'<p class="muted">No active products yet.</p>';document.getElementById('np').textContent=data.length}
-async function loadAdmin(){if(!isAdmin)return;let queries=await Promise.all([sb.from('profiles').select('id,full_name,member_code,referral_code,created_at').order('created_at',{ascending:false}).limit(20),sb.from('products').select('id',{count:'exact',head:true}),sb.from('orders').select('id',{count:'exact',head:true}),sb.from('commission_ledger').select('id',{count:'exact',head:true})]);let [m,p,o,c]=queries;document.getElementById('am').textContent=m.error?'—':(m.data?.length??0);document.getElementById('ap').textContent=p.error?'—':(p.count??0);document.getElementById('ao').textContent=o.error?'—':(o.count??0);document.getElementById('ac').textContent=c.error?'—':(c.count??0);document.getElementById('nm').textContent=m.error?'—':(m.data?.length??0);document.getElementById('ns').textContent=o.error?'—':(o.count??0);document.getElementById('nc').textContent='—';document.getElementById('adminMembers').innerHTML=m.error?'Could not load members: '+esc(m.error.message):(m.data||[]).map(x=>`<div class="item"><span>${esc(x.full_name)}<br><small class="muted">${esc(x.member_code)}</small></span><span class="pill">${esc(x.referral_code)}</span></div>`).join('')||'No member profiles yet.'}
-async function addOnlineProduct(){if(!sb||!isAdmin)return alert('Admin access required.');let name=document.getElementById('newProduct').value.trim(),price=Number(document.getElementById('newPrice').value),rate=Number(document.getElementById('newRate').value);if(!name||price<=0||rate<0||rate>50)return alert('Enter valid product details.');let {error}=await sb.from('products').insert({name,price_pkr:price,commission_percent:rate});if(error){status('adminStatus','Save failed: '+error.message);return}status('adminStatus','Product saved.');document.getElementById('newProduct').value='';document.getElementById('newPrice').value='';await loadProducts();await loadAdmin()}
-function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+'use strict';
+
+let sb = null;
+let user = null;
+let isAdmin = false;
+let authCheckError = null;
+
+function status(id, msg, type = '') {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.textContent = msg;
+  el.classList.remove('error', 'success');
+  if (type) el.classList.add(type);
+}
+
+function configReady() {
+  return !!(
+    window.GM_SUPABASE_URL &&
+    window.GM_SUPABASE_ANON_KEY &&
+    !window.GM_SUPABASE_URL.includes('YOUR_') &&
+    !window.GM_SUPABASE_ANON_KEY.includes('YOUR_')
+  );
+}
+
+function esc(value) {
+  return String(value ?? '').replace(/[&<>"']/g, c => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;'
+  })[c]);
+}
+
+function tab(id) {
+  if (id === 'admin' && !isAdmin) {
+    alert('Admin access required. Please sign in with the authorised admin account.');
+    return;
+  }
+
+  document.querySelectorAll('.view').forEach(view => {
+    view.classList.toggle('hidden', view.id !== id);
+  });
+
+  document.querySelectorAll('[data-tab]').forEach(button => {
+    button.classList.toggle('active', button.dataset.tab === id);
+  });
+}
+
+document.querySelectorAll('[data-tab]').forEach(button => {
+  button.addEventListener('click', () => tab(button.dataset.tab));
+});
+
+async function init() {
+  if (!configReady()) {
+    status(
+      'connection',
+      'Configuration missing. Check config.js: Supabase URL and publishable/anon key.',
+      'error'
+    );
+    status('authStatus', 'Backend configuration is missing.', 'error');
+    status('productList', 'Backend not configured.');
+    return;
+  }
+
+  if (!window.supabase) {
+    status(
+      'connection',
+      'Supabase library did not load. Check your internet connection.',
+      'error'
+    );
+    return;
+  }
+
+  try {
+    sb = window.supabase.createClient(
+      window.GM_SUPABASE_URL,
+      window.GM_SUPABASE_ANON_KEY
+    );
+
+    const { data, error } = await sb.auth.getSession();
+
+    if (error) throw error;
+
+    user = data.session?.user || null;
+    await updateAuth();
+
+    sb.auth.onAuthStateChange((_event, session) => {
+      user = session?.user || null;
+      setTimeout(() => {
+        updateAuth().catch(error => {
+          console.error('Authentication update failed:', error);
+          status('connection', 'Could not refresh account permissions.', 'error');
+        });
+      }, 0);
+    });
+
+    await loadProducts();
+  } catch (error) {
+    console.error('Initialisation failed:', error);
+    status('connection', 'Connection error: ' + error.message, 'error');
+  }
+}
+
+async function updateAuth() {
+  isAdmin = false;
+  authCheckError = null;
+
+  const adminButton = document.getElementById('adminTab');
+
+  if (!sb) {
+    adminButton.classList.add('hidden');
+    status('authStatus', 'Backend is not configured.', 'error');
+    return;
+  }
+
+  if (!user) {
+    adminButton.classList.add('hidden');
+    status('authStatus', 'Not signed in.');
+    status('connection', 'Supabase configured. Sign in to continue.');
+    document.getElementById('admin').classList.add('hidden');
+    return;
+  }
+
+  status('authStatus', 'Signed in: ' + user.email + ' • ' + user.id);
+  status('connection', 'Checking admin permission…');
+
+  try {
+    const { data, error } = await sb
+      .from('admin_users')
+      .select('user_id')
+      .eq('user_id', user.id)
+      .maybeSingle();
+
+    if (error) {
+      authCheckError = error;
+      isAdmin = false;
+      adminButton.classList.add('hidden');
+      document.getElementById('admin').classList.add('hidden');
+
+      status(
+        'connection',
+        'Admin check failed: ' + error.message +
+        '. Check admin_users table permissions and RLS policies.',
+        'error'
+      );
+      return;
+    }
+
+    isAdmin = !!data;
+    adminButton.classList.toggle('hidden', !isAdmin);
+
+    if (isAdmin) {
+      status('connection', 'Connected • Admin access confirmed.', 'success');
+      await loadAdmin();
+    } else {
+      document.getElementById('admin').classList.add('hidden');
+      status(
+        'connection',
+        'Connected • Member account. No matching admin_users record was found.'
+      );
+    }
+  } catch (error) {
+    isAdmin = false;
+    adminButton.classList.add('hidden');
+    document.getElementById('admin').classList.add('hidden');
+
+    status('connection', 'Admin permission error: ' + error.message, 'error');
+  }
+}
+
+async function signIn() {
+  if (!sb) {
+    alert('Backend is not configured. Check config.js first.');
+    return;
+  }
+
+  const email = document.getElementById('email').value.trim();
+  const password = document.getElementById('password').value;
+
+  if (!email || !password) {
+    alert('Enter your email and password.');
+    return;
+  }
+
+  const button = document.getElementById('signInBtn');
+  button.disabled = true;
+
+  try {
+    const { data, error } = await sb.auth.signInWithPassword({
+      email,
+      password
+    });
+
+    if (error) throw error;
+
+    user = data.user;
+    await updateAuth();
+
+    if (user) {
+      status('authStatus', 'Signed in successfully: ' + user.email, 'success');
+      tab('home');
+    }
+  } catch (error) {
+    status('authStatus', 'Sign-in failed: ' + error.message, 'error');
+  } finally {
+    button.disabled = false;
+  }
+}
+
+async function signUp() {
+  if (!sb) {
+    alert('Backend is not configured. Check config.js first.');
+    return;
+  }
+
+  const email = document.getElementById('email').value.trim();
+  const password = document.getElementById('password').value;
+
+  if (!email || password.length < 8) {
+    alert('Enter a valid email and a password of at least 8 characters.');
+    return;
+  }
+
+  const button = document.getElementById('signUpBtn');
+  button.disabled = true;
+
+  try {
+    const { data, error } = await sb.auth.signUp({
+      email,
+      password
+    });
+
+    if (error) throw error;
+
+    if (data.session && data.user) {
+      user = data.user;
+      await updateAuth();
+      status('authStatus', 'Account created and signed in.', 'success');
+    } else {
+      status(
+        'authStatus',
+        'Signup request submitted. Check your email if confirmation is enabled. Profile creation still needs to be configured.',
+        'success'
+      );
+    }
+  } catch (error) {
+    status('authStatus', 'Signup failed: ' + error.message, 'error');
+  } finally {
+    button.disabled = false;
+  }
+}
+
+async function signOut() {
+  if (!sb) return;
+
+  try {
+    const { error } = await sb.auth.signOut();
+    if (error) throw error;
+
+    user = null;
+    isAdmin = false;
+    document.getElementById('adminTab').classList.add('hidden');
+    document.getElementById('admin').classList.add('hidden');
+    tab('home');
+    status('authStatus', 'Signed out successfully.', 'success');
+    status('connection', 'Signed out.');
+  } catch (error) {
+    status('authStatus', 'Sign-out failed: ' + error.message, 'error');
+  }
+}
+
+async function loadProducts() {
+  const list = document.getElementById('productList');
+
+  if (!sb) {
+    list.textContent = 'Backend not configured.';
+    return;
+  }
+
+  try {
+    const { data, error } = await sb
+      .from('products')
+      .select('id,name,price_pkr,commission_percent')
+      .eq('active', true)
+      .order('created_at', { ascending: false });
+
+    if (error) throw error;
+
+    const products = data || [];
+
+    list.innerHTML = products.map(product => `
+      <div class="item">
+        <span>
+          ${esc(product.name)}
+          <small class="muted">(${esc(product.commission_percent)}%)</small>
+        </span>
+        <b>Rs ${Number(product.price_pkr).toLocaleString()}</b>
+      </div>
+    `).join('') || '<p class="muted">No active products yet.</p>';
+
+    document.getElementById('np').textContent = products.length;
+  } catch (error) {
+    list.textContent = 'Could not load products: ' + error.message;
+    console.error('Product loading failed:', error);
+  }
+}
+
+async function loadAdmin() {
+  if (!sb || !isAdmin) return;
+
+  status('adminStatus', 'Admin dashboard loaded.');
+
+  try {
+    const results = await Promise.all([
+      sb.from('profiles')
+        .select('id,full_name,member_code,referral_code,created_at')
+        .order('created_at', { ascending: false })
+        .limit(20),
+
+      sb.from('products')
+        .select('id', { count: 'exact', head: true }),
+
+      sb.from('orders')
+        .select('id', { count: 'exact', head: true }),
+
+      sb.from('commission_ledger')
+        .select('id', { count: 'exact', head: true })
+    ]);
+
+    const [members, products, orders, commissions] = results;
+
+    document.getElementById('am').textContent =
+      members.error ? 'Error' : (members.data?.length ?? 0);
+
+    document.getElementById('ap').textContent =
+      products.error ? 'Error' : (products.count ?? 0);
+
+    document.getElementById('ao').textContent =
+      orders.error ? 'Error' : (orders.count ?? 0);
+
+    document.getElementById('ac').textContent =
+      commissions.error ? 'Error' : (commissions.count ?? 0);
+
+    document.getElementById('nm').textContent =
+      members.error ? '—' : (members.data?.length ?? 0);
+
+    document.getElementById('ns').textContent =
+      orders.error ? '—' : (orders.count ?? 0);
+
+    document.getElementById('nc').textContent = '—';
+
+    if (members.error) {
+      document.getElementById('adminMembers').textContent =
+        'Could not load members: ' + members.error.message;
+    } else {
+      document.getElementById('adminMembers').innerHTML =
+        (members.data || []).map(member => `
+          <div class="item">
+            <span>
+              ${esc(member.full_name || 'Unnamed member')}<br>
+              <small class="muted">${esc(member.member_code || 'No member code')}</small>
+            </span>
+            <span class="pill">${esc(member.referral_code || 'No referral code')}</span>
+          </div>
+        `).join('') || 'No member profiles yet.';
+    }
+
+    const errors = [members, products, orders, commissions]
+      .filter(result => result.error)
+      .map(result => result.error.message);
+
+    if (errors.length) {
+      status('adminStatus', 'Some dashboard data could not load: ' + errors.join(' | '), 'error');
+    }
+  } catch (error) {
+    status('adminStatus', 'Dashboard error: ' + error.message, 'error');
+  }
+}
+
+async function addOnlineProduct() {
+  if (!sb || !isAdmin) {
+    alert('Admin access required.');
+    return;
+  }
+
+  const name = document.getElementById('newProduct').value.trim();
+  const price = Number(document.getElementById('newPrice').value);
+  const rate = Number(document.getElementById('newRate').value);
+  const button = document.getElementById('saveProductBtn');
+
+  if (!name || !Number.isFinite(price) || price <= 0 ||
+      !Number.isFinite(rate) || rate < 0 || rate > 50) {
+    alert('Enter a product name, a price above zero, and commission between 0 and 50%.');
+    return;
+  }
+
+  button.disabled = true;
+  status('adminStatus', 'Saving product…');
+
+  try {
+    const { error } = await sb.from('products').insert({
+      name: name,
+      price_pkr: price,
+      commission_percent: rate
+    });
+
+    if (error) throw error;
+
+    status('adminStatus', 'Product saved successfully.', 'success');
+    document.getElementById('newProduct').value = '';
+    document.getElementById('newPrice').value = '';
+
+    await loadProducts();
+    await loadAdmin();
+  } catch (error) {
+    status('adminStatus', 'Save failed: ' + error.message, 'error');
+  } finally {
+    button.disabled = false;
+  }
+}
+
 init();
-if('serviceWorker'in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('sw.js').catch(()=>{});
-</script></body></html>
+
+/* Disable any previously registered service worker that may be
+   serving an outdated version of this app. */
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.getRegistrations()
+    .then(registrations => {
+      registrations.forEach(registration => registration.unregister());
+    })
+    .catch(error => console.warn('Service worker cleanup:', error));
+}
+</script>
+</body>
+</html>
